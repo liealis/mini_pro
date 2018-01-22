@@ -1,2 +1,2 @@
 # mini_pro
-mini_program backend system
+This is wechat_mini_program backend system
