@@ -15,7 +15,7 @@ class Wx_login extends CI_Controller
 	}
 
 	public function wx_code(){
-		$code = $this->input->get_post('code');
+		$code = $this->input->post('code');
 		if ($code){
 			$AppId = 'wxe30bc3e50cda4310';
 			$secret = '73141b6cb2938e365fcc50ffc7814282';
@@ -34,13 +34,13 @@ class Wx_login extends CI_Controller
 				'msg' => '已注册'
 			);
 			echo json_encode($array, JSON_UNESCAPED_UNICODE);
-		}elseif ( $result == -1){
-		    $array = array(
-		        'code' => -2,
-                'msg' => '不许有空值'
-            );
-		    echo json_encode($array,JSON_UNESCAPED_UNICODE);
-        }else{
+		}elseif ($result == -1){
+			$array = array(
+				'code' => -2,
+				'msg' => '不许有空值'
+			);
+			echo json_encode($array, JSON_UNESCAPED_UNICODE);
+		}else{
 			$id = $result;
 			$array = array(
 				'code' => 0,

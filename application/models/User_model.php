@@ -52,38 +52,38 @@ class User_model extends CI_Model
 //		);
 //	}
 
-	public function setUser($openid,$userInfo){
+	public function setUser($openid, $userInfo)
+	{
 		//@check_User,检查用户是否已经注册
 		$result = $this->check_User($openid);
-		if ($result === false){
+		if ($result === false) {
 			return false;
-		}else{
-		$create_time = date('Y-m-d, H:i:s',time());
-		$gender = $userInfo['gender'];
-		if ($gender === 1){
-		    $gender = 'male';
-        }elseif ($gender === 2){
-		    $gender = 'female';
-        }else{
-		    $gender = 'unknow';
-        }
-		$data =  array(
-			'openid' => $openid,
-			'nickName' => $userInfo['nickName'],
-			'gender' => $gender,
-			'country' => $userInfo['country'],
-			'province' => $userInfo['province'],
-			'city' => $userInfo['city'],
-			'create_time' => $create_time
-		);
-		if ($data['nickName'] == null || $data['country'] == null){
-		    return -1;
-        }else{
-            $this->db->insert('user',$data);
-            $id = $this->db->insert_id();
-            return $id;
-		}
-
+		} else {
+			$create_time = date('Y-m-d, H:i:s', time());
+			$gender = $userInfo['gender'];
+			if ($gender === 1) {
+				$gender = 'male';
+			} elseif ($gender === 2) {
+				$gender = 'female';
+			} else {
+				$gender = 'unknow';
+			}
+			$data = array(
+				'openid' => $openid,
+				'nickName' => $userInfo['nickName'],
+				'gender' => $gender,
+				'country' => $userInfo['country'],
+				'province' => $userInfo['province'],
+				'city' => $userInfo['city'],
+				'create_time' => $create_time
+			);
+			if ($data['nickName'] == null || $data['country'] == null) {
+				return -1;
+			} else {
+				$this->db->insert('user', $data);
+				$id = $this->db->insert_id();
+				return $id;
+			}
 		}
 	}
 
@@ -92,16 +92,16 @@ class User_model extends CI_Model
 	 * 传入openid 进行查询，如果数据库中已有该用户返回false，反之返回true
 	 * @return bool
 	 */
-	public function check_User($value){
+	public function check_User($value)
+	{
 		$result = $this->db->select('openid')
-			->where('openid',$value)
+			->where('openid', $value)
 			->get('user');
 		$row = $result->num_rows();
 		if ($row != 0) {
 			return false;
-		}else{
+		} else {
 			return true;
 		}
 	}
-
 }
